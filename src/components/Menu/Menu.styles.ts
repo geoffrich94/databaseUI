@@ -6,7 +6,7 @@ export const HamburgerMenu = styled(HamburgerMenu_)`
   margin-bottom: 40px;
 `
 
-export const Container = styled.div<{ isOpen: boolean }>`
+export const Container = styled.nav<{ isOpen: boolean }>`
   padding: 30px 15px;
   height: 100%;
   width: 22.5%;

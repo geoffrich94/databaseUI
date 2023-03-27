@@ -1,16 +1,34 @@
-import { Toolbar, Users, SearchBar } from 'components'
-import { useEffect, useState } from 'react';
-import * as S from './Main.styles'
+import { Toolbar, Users } from "components";
+import { useEffect, useState } from "react";
+import * as S from "./Main.styles";
+
+interface User {
+  id: {
+    name: string;
+  };
+  name: {
+    first: string;
+    last: string;
+  };
+  location: {
+    city: string;
+  };
+  email: string;
+  cell: string;
+}
+
+interface Users {
+  users: User[];
+}
 
 export const Main = () => {
-
-  const [searchUser, setSearchUser] = useState('');
-  const [filteredUsers, setFilteredUsers] = useState<any[]>([]);
-  const [results, setResults] = useState<any[]>([]);
+  const [searchUser, setSearchUser] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+  const [results, setResults] = useState<User[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('https://randomuser.me/api/?results=8');
+      const res = await fetch("https://randomuser.me/api/?results=8");
       const data = await res.json();
       setResults(data.results);
     };
@@ -21,9 +39,11 @@ export const Main = () => {
     const handleFilter = () => {
       const updatedUsers = results.filter((result) => {
         if (searchUser === "") {
-          return result
-        } else if (result.name.first.toLowerCase().includes(searchUser.toLowerCase())) {
-          return result
+          return result;
+        } else if (
+          result.name.first.toLowerCase().includes(searchUser.toLowerCase())
+        ) {
+          return result;
         }
       });
       setFilteredUsers(updatedUsers);
@@ -34,8 +54,12 @@ export const Main = () => {
 
   return (
     <S.Container>
-      <Toolbar onChange={(event) => { setSearchUser(event.target.value) }} />
+      <Toolbar
+        onChange={(event) => {
+          setSearchUser((event.target as HTMLInputElement).value);
+        }}
+      />
       <Users users={filteredUsers} />
     </S.Container>
-  )
+  );
 };

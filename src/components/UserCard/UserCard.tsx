@@ -3,12 +3,14 @@ import * as S from "./UserCard.styles";
 
 interface UserCardProps {
   handleClick?: (
+    id: string,
     fullName: string,
     cell: string,
     email: string,
     location: string
   ) => void;
   iconText: string;
+  id?: string;
   fullName: string;
   jobTitle: string;
   location?: string;
@@ -19,6 +21,7 @@ interface UserCardProps {
 export const UserCard: React.FC<UserCardProps> = ({
   handleClick,
   iconText,
+  id,
   fullName,
   jobTitle,
   location,
@@ -28,7 +31,13 @@ export const UserCard: React.FC<UserCardProps> = ({
   return (
     <S.Container
       onClick={() => {
-        handleClick?.(fullName || "", cell || "", email || "", location || "");
+        handleClick?.(
+          id || "",
+          fullName || "",
+          cell || "",
+          email || "",
+          location || ""
+        );
       }}
     >
       <ProfileIcon text={iconText} />

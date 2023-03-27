@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.menu`
   padding: 15px 25px;
   display: flex;
   justify-content: flex-end;

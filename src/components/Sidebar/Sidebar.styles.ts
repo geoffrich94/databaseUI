@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { devices } from "../../theme/breakpoints";
 
-export const Container = styled.div<{ isOpen: boolean }>`
+export const Container = styled.aside<{ isOpen: boolean }>`
   width: ${({ isOpen }) => (isOpen ? '35%' : '0')};
   height: 100%;
   border-left: 1px solid #E5E5E5;

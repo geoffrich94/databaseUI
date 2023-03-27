@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { devices } from "../../theme/breakpoints";
 
-export const Container = styled.div`
+export const Container = styled.section`
   display: flex;
   position: relative;
   height: 100%;

@@ -2,13 +2,37 @@ import { Sidebar, UserCard, UserCardList, Dropdown } from "components";
 import { useState } from "react";
 import * as S from "./Users.styles";
 
+interface User {
+  id: {
+    name: string;
+  };
+  name: {
+    first: string;
+    last: string;
+  };
+  location: {
+    city: string;
+  };
+  email: string;
+  cell: string;
+}
+
 interface UsersProps {
-  users: any[];
+  users: User[];
+}
+
+interface SelectedUser {
+  id: string;
+  fullName: string;
+  location: string;
+  email: string;
+  cell: string;
 }
 
 export const Users: React.FC<UsersProps> = ({ users }) => {
   const [sidebarOpen, setSideBarOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState({
+  const [selectedUser, setSelectedUser] = useState<SelectedUser>({
+    id: "",
     fullName: "",
     location: "",
     email: "",
@@ -16,22 +40,24 @@ export const Users: React.FC<UsersProps> = ({ users }) => {
   });
 
   const handleSidebar = (
+    id: string,
     fullName: string,
     cell: string,
     email: string,
     location: string
   ) => {
-    setSelectedUser({
-      fullName,
-      location,
-      email,
-      cell,
+    setSelectedUser((previousUser) => {
+      if (previousUser?.id === id && sidebarOpen) {
+        setSideBarOpen(false);
+        return previousUser;
+      } else if (previousUser?.id === id && !sidebarOpen) {
+        setSideBarOpen(true);
+        return previousUser;
+      } else {
+        setSideBarOpen(true);
+        return { id, fullName, location, email, cell };
+      }
     });
-    if (sidebarOpen) {
-      setSideBarOpen(false);
-    } else {
-      setSideBarOpen(true);
-    }
   };
 
   return (
@@ -48,6 +74,7 @@ export const Users: React.FC<UsersProps> = ({ users }) => {
             return (
               <UserCard
                 key={idx}
+                id={user.id.name}
                 location={user.location.city}
                 email={user.email}
                 cell={user.cell}

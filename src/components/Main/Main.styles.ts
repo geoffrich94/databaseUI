@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { devices } from "../../theme/breakpoints";
 
-export const Container = styled.div`
+export const Container = styled.main`
   display: flex;
   flex-direction: column;
   width: 77.5%;
